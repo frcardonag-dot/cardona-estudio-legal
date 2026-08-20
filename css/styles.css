@@ -1,0 +1,651 @@
+/* ===========================================================
+   Cardona Estudio Legal — estilos base
+   Paleta extraída del logo oficial (ver brief de diseño)
+   =========================================================== */
+
+:root {
+  --black: #000000;
+  --terracota: #A0603F;
+  --terracota-dark: #86502F;
+  --plata: #919191;
+  --marfil: #EAE8DC;
+  --crema-claro: #F6F3EA;   /* derivado del marfil, para fondos claros */
+  --texto-oscuro: #241F1A;
+
+  --font-serif: "Playfair Display", "Georgia", serif;
+  --font-sans: "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+
+  --max-width: 1180px;
+  --radius: 4px;
+}
+
+* { box-sizing: border-box; }
+
+html { scroll-behavior: smooth; }
+
+body {
+  margin: 0;
+  font-family: var(--font-sans);
+  color: var(--texto-oscuro);
+  background: var(--crema-claro);
+  line-height: 1.6;
+  -webkit-font-smoothing: antialiased;
+}
+
+img { max-width: 100%; display: block; }
+
+.container {
+  max-width: var(--max-width);
+  margin: 0 auto;
+  padding: 0 24px;
+}
+
+h1, h2, h3 {
+  font-family: var(--font-serif);
+  font-weight: 600;
+  line-height: 1.2;
+  margin: 0 0 16px;
+}
+
+h2 { font-size: clamp(1.7rem, 3vw, 2.4rem); }
+h3 { font-size: 1.25rem; }
+
+p { margin: 0 0 16px; }
+
+a { color: var(--terracota); text-decoration: none; }
+
+.eyebrow {
+  font-family: var(--font-serif);
+  font-style: italic;
+  text-transform: uppercase;
+  letter-spacing: 0.14em;
+  font-size: 0.78rem;
+  color: var(--terracota);
+  margin: 0 0 10px;
+}
+.eyebrow-dark { color: var(--terracota); }
+
+.section-lead {
+  max-width: 640px;
+  color: #524b42;
+  font-size: 1.05rem;
+}
+
+/* ===== Botones ===== */
+.btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  padding: 14px 26px;
+  border-radius: var(--radius);
+  font-weight: 600;
+  font-size: 0.95rem;
+  cursor: pointer;
+  border: 1px solid transparent;
+  transition: transform 0.15s ease, background 0.2s ease, color 0.2s ease, border-color .2s ease;
+}
+.btn:hover { transform: translateY(-1px); }
+
+.btn-primary {
+  background: var(--terracota);
+  color: var(--marfil);
+}
+.btn-primary:hover { background: var(--terracota-dark); }
+
+.btn-outline {
+  background: transparent;
+  color: var(--marfil);
+  border-color: var(--plata);
+}
+.btn-outline:hover { border-color: var(--marfil); }
+
+.btn-block { width: 100%; justify-content: center; }
+
+.icon-wa { width: 18px; height: 18px; }
+
+/* ===== Header ===== */
+.site-header {
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  background: var(--black);
+  border-bottom: 1px solid #2a2a2a;
+}
+
+.header-inner {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 24px;
+  padding-top: 12px;
+  padding-bottom: 12px;
+}
+
+.brand {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.brand-mark { width: 44px; height: 44px; flex-shrink: 0; }
+
+.brand-word { display: flex; flex-direction: column; line-height: 1.05; }
+.brand-name {
+  font-family: var(--font-serif);
+  font-size: 1.15rem;
+  color: var(--marfil);
+  letter-spacing: 0.02em;
+}
+.brand-sub {
+  font-family: var(--font-serif);
+  font-size: 0.6rem;
+  color: var(--terracota);
+  text-transform: uppercase;
+  letter-spacing: 0.22em;
+}
+
+.main-nav {
+  display: flex;
+  gap: 30px;
+}
+.main-nav a {
+  color: var(--marfil);
+  font-size: 0.92rem;
+  font-weight: 500;
+  opacity: 0.85;
+}
+.main-nav a:hover { opacity: 1; color: var(--terracota); }
+
+.header-cta { flex-shrink: 0; }
+
+.nav-toggle {
+  display: none;
+  flex-direction: column;
+  gap: 5px;
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 8px;
+}
+.nav-toggle span {
+  width: 24px;
+  height: 2px;
+  background: var(--marfil);
+}
+
+.nav-cta-mobile { display: none; }
+
+/* ===== Hero ===== */
+.hero {
+  background: var(--black);
+  color: var(--marfil);
+  padding: 90px 0 100px;
+  position: relative;
+}
+
+.hero-inner { max-width: 760px; }
+
+.hero h1 {
+  color: var(--marfil);
+  font-size: clamp(2.1rem, 4.5vw, 3.4rem);
+  margin-bottom: 22px;
+}
+
+.hero-lead {
+  font-size: 1.15rem;
+  color: #cfcbc0;
+  max-width: 600px;
+  margin-bottom: 36px;
+}
+
+.hero-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 16px;
+}
+
+/* ===== Servicios destacados (cards) ===== */
+.featured-services {
+  background: var(--crema-claro);
+  padding: 0;
+  margin-top: -48px;
+  position: relative;
+  z-index: 5;
+}
+
+.card-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 24px;
+}
+
+.service-card {
+  background: #fff;
+  border: 1px solid #e7e2d4;
+  border-radius: var(--radius);
+  padding: 32px 26px;
+  box-shadow: 0 12px 30px -18px rgba(0,0,0,0.35);
+}
+
+.service-icon {
+  width: 46px;
+  height: 46px;
+  color: var(--terracota);
+  margin-bottom: 18px;
+}
+.service-icon svg { width: 100%; height: 100%; }
+
+.service-card h3 { font-size: 1.1rem; margin-bottom: 10px; }
+.service-card p { color: #5c554a; font-size: 0.96rem; margin-bottom: 14px; }
+
+.card-link {
+  font-weight: 600;
+  font-size: 0.9rem;
+  color: var(--terracota);
+}
+.card-link:hover { color: var(--terracota-dark); }
+
+/* ===== Por qué elegirnos ===== */
+.why-us {
+  background: var(--black);
+  color: var(--marfil);
+  padding: 90px 0;
+  margin-top: 90px;
+}
+
+.why-us h2 { color: var(--marfil); }
+
+.why-inner { }
+
+.why-text { max-width: 640px; margin-bottom: 50px; }
+.why-us .section-lead { color: #b9b5aa; }
+
+.why-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 40px;
+}
+
+.why-number {
+  display: block;
+  font-family: var(--font-serif);
+  font-size: 1.6rem;
+  color: var(--terracota);
+  margin-bottom: 10px;
+}
+
+.why-item h3 { color: var(--marfil); }
+.why-item p { color: #b9b5aa; font-size: 0.96rem; }
+
+/* ===== Testimonios ===== */
+.testimonials { padding: 90px 0; }
+
+.testimonial-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 24px;
+  margin-top: 30px;
+}
+
+.testimonial {
+  margin: 0;
+  padding: 28px;
+  background: #fff;
+  border-left: 3px solid var(--terracota);
+  border-radius: var(--radius);
+}
+.testimonial p {
+  font-style: italic;
+  color: #423c33;
+  margin-bottom: 14px;
+}
+.testimonial cite {
+  font-style: normal;
+  font-size: 0.85rem;
+  color: var(--plata);
+  font-weight: 600;
+}
+
+.testimonial-note {
+  margin-top: 24px;
+  font-size: 0.82rem;
+  color: var(--plata);
+}
+
+/* ===== Servicios detalle ===== */
+.services-detail {
+  background: #fff;
+  padding: 90px 0;
+  border-top: 1px solid #e7e2d4;
+  border-bottom: 1px solid #e7e2d4;
+}
+
+.services-list {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 28px;
+  margin-top: 36px;
+}
+
+.service-detail-card {
+  padding: 30px;
+  background: var(--crema-claro);
+  border-radius: var(--radius);
+}
+.service-detail-card h3 { color: var(--texto-oscuro); }
+.service-detail-card p { color: #5c554a; font-size: 0.96rem; }
+.service-cases strong { color: var(--texto-oscuro); }
+
+/* ===== Sobre el abogado ===== */
+.about { padding: 90px 0; }
+
+.about-inner {
+  display: grid;
+  grid-template-columns: 320px 1fr;
+  gap: 60px;
+  align-items: start;
+}
+
+.about-photo-frame {
+  background: var(--black);
+  border-radius: var(--radius);
+  padding: 40px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  aspect-ratio: 4 / 5;
+}
+.about-photo-placeholder { width: 55%; opacity: 0.9; }
+.about-photo-note {
+  font-size: 0.78rem;
+  color: var(--plata);
+  margin-top: 10px;
+  text-align: center;
+}
+
+.about-text p:not(.section-lead) { color: #423c33; }
+
+/* ===== FAQ ===== */
+.faq { background: #fff; padding: 90px 0; border-top: 1px solid #e7e2d4; }
+
+.faq-list { margin-top: 30px; max-width: 780px; }
+
+.faq-item {
+  border-bottom: 1px solid #e7e2d4;
+  padding: 18px 0;
+}
+.faq-item summary {
+  cursor: pointer;
+  font-family: var(--font-serif);
+  font-weight: 600;
+  font-size: 1.05rem;
+  list-style: none;
+  position: relative;
+  padding-right: 28px;
+}
+.faq-item summary::-webkit-details-marker { display: none; }
+.faq-item summary::after {
+  content: "+";
+  position: absolute;
+  right: 0;
+  top: -2px;
+  font-size: 1.4rem;
+  color: var(--terracota);
+  transition: transform 0.2s ease;
+}
+.faq-item[open] summary::after { transform: rotate(45deg); }
+.faq-item p { margin-top: 14px; color: #5c554a; }
+
+/* ===== Contacto ===== */
+.contact {
+  background: var(--black);
+  color: var(--marfil);
+  padding: 90px 0;
+}
+
+.contact-inner {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 60px;
+}
+
+.contact h2 { color: var(--marfil); }
+.contact .section-lead { color: #b9b5aa; }
+
+.contact-details {
+  list-style: none;
+  padding: 0;
+  margin: 30px 0 0;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+.contact-details li {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  border-bottom: 1px solid #2a2a2a;
+  padding-bottom: 14px;
+}
+.contact-label {
+  font-size: 0.75rem;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  color: var(--plata);
+}
+.contact-details a, .contact-details span:not(.contact-label) {
+  color: var(--marfil);
+  font-size: 1.05rem;
+}
+.contact-details a:hover { color: var(--terracota); }
+
+.contact-form {
+  background: var(--marfil);
+  padding: 34px;
+  border-radius: var(--radius);
+  display: flex;
+  flex-direction: column;
+}
+.contact-form label {
+  font-size: 0.85rem;
+  font-weight: 600;
+  color: var(--texto-oscuro);
+  margin: 14px 0 6px;
+}
+.contact-form label:first-child { margin-top: 0; }
+
+.contact-form input[type="text"],
+.contact-form input[type="tel"],
+.contact-form textarea {
+  border: 1px solid #d8d3c4;
+  border-radius: var(--radius);
+  padding: 12px 14px;
+  font-family: var(--font-sans);
+  font-size: 0.95rem;
+  background: #fff;
+  color: var(--texto-oscuro);
+  resize: vertical;
+}
+.contact-form input:focus,
+.contact-form textarea:focus {
+  outline: none;
+  border-color: var(--terracota);
+}
+
+/* Campo trampa anti-spam: fuera de la vista y del foco, sin usar display:none
+   (que algunos bots detectan). */
+.honeypot {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip-path: inset(50%);
+  white-space: nowrap;
+}
+
+.checkbox-label {
+  flex-direction: row !important;
+  align-items: flex-start;
+  gap: 8px;
+  font-weight: 400 !important;
+  font-size: 0.82rem !important;
+  color: #5c554a;
+}
+.checkbox-label input { margin-top: 3px; }
+.checkbox-label a { color: var(--terracota); text-decoration: underline; }
+
+.contact-form button { margin-top: 22px; }
+
+.form-note {
+  margin: 12px 0 0;
+  font-size: 0.85rem;
+  min-height: 1.2em;
+}
+.form-note.success { color: #4d7c4d; }
+.form-note.error { color: #a04040; }
+
+/* ===== Footer ===== */
+.site-footer {
+  background: #0a0a0a;
+  color: var(--plata);
+  padding: 50px 0 30px;
+}
+
+.footer-inner {
+  display: grid;
+  grid-template-columns: 1fr auto;
+  gap: 30px 60px;
+  align-items: start;
+}
+
+.footer-brand { display: flex; align-items: center; gap: 14px; grid-column: 1; }
+.footer-mark { width: 40px; height: 40px; }
+.footer-name { font-family: var(--font-serif); color: var(--marfil); margin: 0; font-size: 1.05rem; }
+.footer-tagline { margin: 0; font-size: 0.8rem; color: var(--plata); }
+
+.footer-nav {
+  grid-column: 2;
+  display: flex;
+  gap: 24px;
+}
+.footer-nav a { color: var(--plata); font-size: 0.88rem; }
+.footer-nav a:hover { color: var(--terracota); }
+
+.footer-legal {
+  grid-column: 1 / -1;
+  border-top: 1px solid #222;
+  padding-top: 22px;
+  margin-top: 10px;
+}
+.footer-legal p {
+  font-size: 0.78rem;
+  color: #6b6b6b;
+  margin-bottom: 6px;
+  max-width: 720px;
+}
+.footer-legal a { color: var(--plata); text-decoration: underline; }
+
+/* ===== WhatsApp flotante ===== */
+.whatsapp-float {
+  position: fixed;
+  bottom: 24px;
+  right: 24px;
+  width: 58px;
+  height: 58px;
+  background: var(--terracota);
+  color: var(--marfil);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 10px 24px -8px rgba(0,0,0,0.5);
+  z-index: 200;
+  transition: transform 0.2s ease, background 0.2s ease;
+}
+.whatsapp-float svg { width: 28px; height: 28px; }
+.whatsapp-float:hover { transform: scale(1.06); background: var(--terracota-dark); }
+
+/* ===== Modal privacidad ===== */
+.privacy-modal {
+  position: fixed;
+  inset: 0;
+  z-index: 300;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+}
+.privacy-modal[hidden] { display: none; }
+.privacy-modal-backdrop {
+  position: absolute;
+  inset: 0;
+  background: rgba(0,0,0,0.6);
+}
+.privacy-modal-content {
+  position: relative;
+  background: var(--crema-claro);
+  max-width: 560px;
+  width: 100%;
+  max-height: 80vh;
+  overflow-y: auto;
+  padding: 36px;
+  border-radius: var(--radius);
+}
+.privacy-modal-content h3 { margin-top: 0; }
+.privacy-modal-content p { color: #423c33; font-size: 0.92rem; }
+.privacy-close {
+  position: absolute;
+  top: 14px;
+  right: 14px;
+  background: none;
+  border: none;
+  font-size: 1.6rem;
+  line-height: 1;
+  cursor: pointer;
+  color: var(--texto-oscuro);
+}
+
+/* ===========================================================
+   Responsive
+   =========================================================== */
+@media (max-width: 960px) {
+  .card-grid,
+  .why-grid,
+  .testimonial-grid,
+  .services-list {
+    grid-template-columns: 1fr;
+  }
+  .about-inner,
+  .contact-inner {
+    grid-template-columns: 1fr;
+  }
+  .about-photo-frame { max-width: 320px; }
+  .footer-inner { grid-template-columns: 1fr; }
+  .footer-nav { grid-column: 1; flex-wrap: wrap; }
+}
+
+@media (max-width: 760px) {
+  .main-nav, .header-cta { display: none; }
+  .nav-toggle { display: flex; }
+
+  .site-header.nav-open .main-nav {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    position: absolute;
+    top: 100%;
+    left: 0;
+    right: 0;
+    background: var(--black);
+    padding: 20px 24px;
+    gap: 18px;
+    border-bottom: 1px solid #2a2a2a;
+  }
+  .site-header.nav-open .nav-cta-mobile { display: inline-flex; margin-top: 8px; }
+
+  .hero { padding: 60px 0 80px; }
+  .featured-services { margin-top: -36px; }
+  .why-us, .testimonials, .services-detail, .about, .faq, .contact {
+    padding: 60px 0;
+  }
+}
