@@ -31,10 +31,20 @@ export default async function handler(req, res) {
     return res.status(400).json({ error: "Alguno de los campos supera el largo permitido." });
   }
 
+  // FormSubmit identifica el formulario por el sitio desde el que se envía. Como
+  // esta llamada sale del servidor y no del navegador, hay que declarar el origen
+  // de forma explícita; sin esto rechaza la petición.
+  const origen = `https://${req.headers["x-forwarded-host"] ?? req.headers.host}`;
+
   try {
     const respuesta = await fetch(`https://formsubmit.co/ajax/${encodeURIComponent(destino)}`, {
       method: "POST",
-      headers: { "Content-Type": "application/json", Accept: "application/json" },
+      headers: {
+        "Content-Type": "application/json",
+        Accept: "application/json",
+        Origin: origen,
+        Referer: `${origen}/`,
+      },
       body: JSON.stringify({
         _subject: `Nueva solicitud de asesoría — ${datos.nombre}`,
         _template: "table",
@@ -44,7 +54,19 @@ export default async function handler(req, res) {
       }),
     });
 
-    if (!respuesta.ok) throw new Error(`FormSubmit respondió ${respuesta.status}`);
+    // Ojo: FormSubmit devuelve 200 incluso cuando falla, y señala el error dentro
+    // del cuerpo. Hay que leerlo, no basta con mirar el código de estado.
+    const cuerpo = await respuesta.text();
+    let resultado;
+    try {
+      resultado = JSON.parse(cuerpo);
+    } catch {
+      throw new Error(`Respuesta no reconocida (${respuesta.status}): ${cuerpo.slice(0, 200)}`);
+    }
+
+    if (String(resultado.success) !== "true") {
+      throw new Error(resultado.message ?? "FormSubmit rechazó el envío");
+    }
 
     return res.status(200).json({ ok: true });
   } catch (error) {
