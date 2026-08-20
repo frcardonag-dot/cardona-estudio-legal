@@ -349,18 +349,15 @@ a { color: var(--terracota); text-decoration: none; }
 .about-photo-frame {
   background: var(--black);
   border-radius: var(--radius);
-  padding: 40px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
+  overflow: hidden;
   aspect-ratio: 4 / 5;
 }
-.about-photo-placeholder { width: 55%; opacity: 0.9; }
-.about-photo-note {
-  font-size: 0.78rem;
-  color: var(--plata);
-  margin-top: 10px;
-  text-align: center;
+.about-photo-img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center 20%; /* deja aire sobre la cabeza al recortar */
+  display: block;
 }
 
 .about-text p:not(.section-lead) { color: #423c33; }
