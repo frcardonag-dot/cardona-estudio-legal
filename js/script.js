@@ -53,7 +53,7 @@ document.addEventListener("DOMContentLoaded", () => {
   //
   // El identificador de abajo es el alias que FormSubmit asigna a la cuenta. Reenvía
   // al correo del estudio sin que la dirección aparezca en el código de la página.
-  const FORM_ENDPOINT = "https://formsubmit.co/ajax/c11065e4be6584493e32a2bff91ef1f7";
+  const FORM_ENDPOINT = "https://formsubmit.co/ajax/1eeb1a31af92d8f544a4793a32e688c5";
   const WHATSAPP_NUMBER = "573243222965";
 
   if (form) {
