@@ -47,9 +47,13 @@ document.addEventListener("DOMContentLoaded", () => {
   const form = document.getElementById("contact-form");
   const formNote = document.getElementById("form-note");
 
-  // El correo de destino vive en el servidor (variable de entorno CONTACT_EMAIL),
-  // nunca en el navegador. Ver api/contacto.js.
-  const FORM_ENDPOINT = "/api/contacto";
+  // FormSubmit debe llamarse desde el navegador: sus servidores rechazan las
+  // peticiones que salen de un centro de datos, así que hacerlo desde una función
+  // en el servidor no funciona.
+  //
+  // El identificador de abajo es el alias que FormSubmit asigna a la cuenta. Reenvía
+  // al correo del estudio sin que la dirección aparezca en el código de la página.
+  const FORM_ENDPOINT = "https://formsubmit.co/ajax/c11065e4be6584493e32a2bff91ef1f7";
   const WHATSAPP_NUMBER = "573243222965";
 
   if (form) {
@@ -63,6 +67,14 @@ document.addEventListener("DOMContentLoaded", () => {
       if (!nombre || !telefono || !caso || !form.privacidad.checked) {
         formNote.textContent = "Por favor completa todos los campos y acepta la política de datos.";
         formNote.className = "form-note error";
+        return;
+      }
+
+      // Campo trampa: si viene relleno es un bot. Se simula el envío sin hacer nada.
+      if (form.website.value) {
+        formNote.textContent = "¡Gracias! Recibimos tu solicitud y te contactaremos pronto.";
+        formNote.className = "form-note success";
+        form.reset();
         return;
       }
 
@@ -80,15 +92,29 @@ document.addEventListener("DOMContentLoaded", () => {
         const res = await fetch(FORM_ENDPOINT, {
           method: "POST",
           headers: { "Content-Type": "application/json", Accept: "application/json" },
-          body: JSON.stringify({ nombre, telefono, caso, website: form.website.value }),
+          body: JSON.stringify({
+            _subject: `Nueva solicitud de asesoría — ${nombre}`,
+            _template: "table",
+            Nombre: nombre,
+            Teléfono: telefono,
+            Caso: caso,
+          }),
         });
-        if (!res.ok) throw new Error("Envío rechazado");
+
+        // FormSubmit responde 200 incluso cuando rechaza el envío, e indica el
+        // error dentro del cuerpo. Hay que leerlo: mirar solo el estado daría por
+        // bueno un envío que nunca llegó.
+        const datos = await res.json().catch(() => null);
+        if (!res.ok || String(datos?.success) !== "true") {
+          throw new Error(datos?.message ?? `Envío rechazado (${res.status})`);
+        }
 
         formNote.textContent = "¡Gracias! Recibimos tu solicitud y te contactaremos pronto.";
         formNote.className = "form-note success";
         form.reset();
-      } catch {
-        // Si el correo no está disponible, se continúa por WhatsApp.
+      } catch (error) {
+        // Si el correo falla, se continúa por WhatsApp para no perder el contacto.
+        console.error("Fallo el envío del formulario:", error);
         formNote.textContent = "Te estamos redirigiendo a WhatsApp para completar tu solicitud.";
         formNote.className = "form-note success";
         abrirWhatsApp();
