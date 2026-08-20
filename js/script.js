@@ -99,6 +99,10 @@ document.addEventListener("DOMContentLoaded", () => {
             Teléfono: telefono,
             Caso: caso,
           }),
+          // Si el servicio no responde, se abandona el intento y se pasa a
+          // WhatsApp. Sin este límite el visitante se queda viendo "Enviando…"
+          // indefinidamente y el contacto se pierde.
+          signal: AbortSignal.timeout(15000),
         });
 
         // FormSubmit responde 200 incluso cuando rechaza el envío, e indica el
