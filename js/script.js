@@ -71,7 +71,7 @@ document.addEventListener("DOMContentLoaded", () => {
       }
 
       // Campo trampa: si viene relleno es un bot. Se simula el envío sin hacer nada.
-      if (form.website.value) {
+      if (form.elements["_honey"].value) {
         formNote.textContent = "¡Gracias! Recibimos tu solicitud y te contactaremos pronto.";
         formNote.className = "form-note success";
         form.reset();
