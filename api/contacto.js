@@ -71,6 +71,10 @@ export default async function handler(req, res) {
     return res.status(200).json({ ok: true });
   } catch (error) {
     console.error("Error al enviar la solicitud:", error);
-    return res.status(502).json({ error: "No pudimos enviar tu solicitud en este momento." });
+    return res.status(502).json({
+      error: "No pudimos enviar tu solicitud en este momento.",
+      // TEMPORAL (diagnóstico): quitar en cuanto el formulario quede verificado.
+      _diag: { motivo: String(error?.message ?? error), origen },
+    });
   }
 }
